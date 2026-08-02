@@ -1,7 +1,7 @@
 {
   "appId": "com.strofy.store",
   "appName": "Strofy",
-  "webDir": ".",
+  "webDir": "www",
   "bundledWebRuntime": false,
   "server": {
     "cleartext": true
