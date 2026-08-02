@@ -1,107 +1,183 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحميل التطبيق</title>
-    <style>
-        body {
-            background-color: #0b0b0e;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-        .app-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 30px 20px;
-            max-width: 350px;
-            width: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .app-icon {
-            width: 90px;
-            height: 90px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-        h1 {
-            font-size: 22px;
-            margin: 10px 0 5px 0;
-        }
-        .version {
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        .description {
-            color: #aaa;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        .download-btn {
-            background-color: #ffffff;
-            color: #000000;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 14px 0;
-            width: 100%;
-            display: block;
-            border-radius: 50px;
-            font-size: 16px;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
-            transition: 0.2s;
-        }
-        .download-btn:active {
-            transform: scale(0.98);
-        }
-    </label>
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>ستروفي — متجر وتوقيع التطبيقات</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0f19;
+    --surface: #131b2e;
+    --surface-card: #1a233a;
+    --border: #263554;
+    --text: #f3f4f6;
+    --muted: #9ca3af;
+    --primary: #3b82f6;
+    --success: #10b981;
+    --radius: 20px;
+    --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 90px;
+  }
+  h1, h2, h3, .brand { font-family: 'Tajawal', sans-serif; }
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11, 15, 25, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+  }
+  .nav-container {
+    max-width: 600px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 1.35rem; font-weight: 900; color: #fff;
+  }
+  .brand-logo-img {
+    width: 38px; height: 38px; border-radius: 10px;
+    object-fit: contain; background: #000; border: 1px solid var(--border);
+  }
+  .header-badge {
+    background: rgba(16, 185, 129, 0.15); color: var(--success);
+    font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+  }
+  .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+  .hero-banner {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; text-align: center; margin-bottom: 24px; box-shadow: var(--shadow);
+  }
+  .hero-banner h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .hero-banner p { color: var(--muted); font-size: 0.9rem; margin-bottom: 18px; }
+  .search-box { position: relative; width: 100%; }
+  .search-box input {
+    width: 100%; background: var(--surface); border: 1px solid var(--border);
+    padding: 12px 16px 12px 44px; border-radius: 14px; color: var(--text); outline: none;
+  }
+  .search-box svg {
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+    width: 18px; height: 18px; fill: var(--muted);
+  }
+  .section-title {
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 14px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .apps-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+  .app-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px; display: flex; align-items: center; gap: 14px;
+  }
+  .app-icon { width: 60px; height: 60px; border-radius: 14px; background: var(--surface-card); object-fit: cover; }
+  .app-info { flex: 1; min-width: 0; }
+  .app-name { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+  .app-desc { color: var(--muted); font-size: 0.8rem; margin-bottom: 6px; }
+  .app-meta { display: flex; gap: 10px; font-size: 0.75rem; color: var(--muted); }
+  .badge-ver { background: rgba(59, 130, 246, 0.15); color: var(--primary); padding: 1px 6px; border-radius: 4px; font-weight: 600; }
+  .install-btn {
+    background: var(--primary); color: white; border: none; padding: 8px 18px;
+    border-radius: 12px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
+  }
+  .tool-card {
+    background: linear-gradient(135deg, #131b2e, #1a103c);
+    border: 1px solid #3b2c63; border-radius: var(--radius); padding: 20px; margin-bottom: 30px;
+  }
+  .tool-card h3 { font-size: 1rem; margin-bottom: 8px; color: #c084fc; }
+  .tool-card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 14px; }
+  .upload-file-box {
+    border: 2px dashed #3b2c63; border-radius: 14px; padding: 20px; text-align: center;
+    background: rgba(19, 27, 46, 0.5); cursor: pointer;
+  }
+  .upload-file-box span { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 6px; }
+  .action-btn-full {
+    width: 100%; margin-top: 12px; background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+    color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;
+  }
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(19, 27, 46, 0.92); backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 10px 0;
+  }
+  .nav-item {
+    background: none; border: none; color: var(--muted); font-family: inherit;
+    font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer;
+  }
+  .nav-item.active { color: var(--primary); }
+  .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+</style>
 </head>
 <body>
 
+<header>
+  <div class="nav-container">
+    <div class="brand">
+      <img src="logo.png" alt="Strofy" class="brand-logo-img">
+      <span>ستروفي | Strofy</span>
+    </div>
+    <div class="header-badge">متجر آمن</div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="hero-banner">
+    <h1>متجر وتوقيع التطبيقات</h1>
+    <p>حمّل أحدث التطبيقات المعدلة وثبتها مباشرة على جهازك</p>
+    <div class="search-box">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input type="text" id="searchInput" placeholder="ابحث عن تطبيق أو لعبة...">
+    </div>
+  </div>
+
+  <div class="section-title"><span>التطبيقات المتاحة</span></div>
+
+  <div class="apps-list">
     <div class="app-card">
-        <!-- أيقونة التطبيق -->
-        <img id="appIcon" class="app-icon" src="" alt="App Icon">
-        
-        <!-- اسم التطبيق -->
-        <h1 id="appName">اسم التطبيق</h1>
-        
-        <!-- الإصدار والتصنيف -->
-        <div id="appVersion" class="version">الإصدار 1.0</div>
-        
-        <!-- وصف التطبيق -->
-        <p id="appDesc" class="description">وصف مختصر يوضح مميزات التطبيق وكيفية عمله بشكل آمن وسهل.</p>
-        
-        <!-- زر التحميل المباشر (أو التثبيت عبر itms-services) -->
-        <a id="downloadLink" href="#" class="download-btn">تنزيل التطبيق ⬇</a>
+      <div class="app-icon" style="background:#3b82f6; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:bold;">S</div>
+      <div class="app-info">
+        <div class="app-name">Strofy Client Pro</div>
+        <div class="app-desc">التطبيق الرسمي لإدارة وتثبيت التطبيقات</div>
+        <div class="app-meta"><span class="badge-ver">v2.4</span><span>45 MB</span></div>
+      </div>
+      <button class="install-btn" onclick="alert('جارٍ تجهيز التثبيت المباشر...')">تثبيت</button>
     </div>
 
-    <script>
-        // قراءة المعلومات المتغيرة من الرابط (Query Parameters) لتغيير محتوى الصفحة بحسب التطبيق الذي تم الضغط عليه
-        const urlParams = new URLSearchParams(window.location.search);
-        const name = urlParams.get('name') || 'تطبيق مميز';
-        const version = urlParams.get('ver') || '1.0';
-        const icon = urlParams.get('icon') || 'https://via.placeholder.com/90';
-        const link = urlParams.get('link') || '#';
-        const desc = urlParams.get('desc') || 'استمتع بأفضل تجربة استخدام لهذا التطبيق المعدل.';
+    <div class="app-card">
+      <div class="app-icon" style="background:#8b5cf6; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:bold;">YT</div>
+      <div class="app-info">
+        <div class="app-name">YouTube Enhanced</div>
+        <div class="app-desc">يوتيوب بلس بدون إعلانات مع تشغيل بالخلفية</div>
+        <div class="app-meta"><span class="badge-ver">v19.2</span><span>120 MB</span></div>
+      </div>
+      <button class="install-btn" onclick="alert('جارٍ تجهيز التثبيت المباشر...')">تثبيت</button>
+    </div>
+  </div>
 
-        document.getElementById('appName').innerText = name;
-        document.getElementById('appVersion').innerText = "الإصدار " + version;
-        document.getElementById('appIcon').src = icon;
-        document.getElementById('downloadLink').href = link;
-        document.getElementById('appDesc').innerText = desc;
-    </script>
+  <div class="tool-card">
+    <h3>🛠️ أداة توقيع ورفع ملفات IPA</h3>
+    <p>قم برفع وتوقيع ملف الـ IPA الخاص بك بشهادتك الشخصية مباشرة</p>
+    <div class="upload-file-box" onclick="alert('اختر ملف الـ IPA من جهازك')">
+      <span>اضغط هنا لاختيار ملف IPA للتوقيع</span>
+    </div>
+    <button class="action-btn-full" onclick="alert('تم تفعيل وضع التوقيع!')">بدء التوقيع والتثبيت</button>
+  </div>
+</main>
+
+<nav class="bottom-nav">
+  <button class="nav-item active">
+    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>الرئيسية
+  </button>
+  <button class="nav-item" onclick="alert('أقسام المتجر قيد التحديث')">
+    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>رفع تطبيق
+  </button>
+</nav>
 
 </body>
 </html>
