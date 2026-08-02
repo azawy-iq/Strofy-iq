@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "name": "يوتيوب بلس",
+    "version": "18.5",
+    "size": "75 MB",
+    "icon": "https://via.placeholder.com/90/FF0000/FFFFFF?text=YT",
+    "desc": "نسخة يوتيوب بلس بدون إعلانات مع ميزات تشغيل في الخلفية.",
+    "link": "itms-services://?action=download-manifest&url=https://your-link.com/app.plist"
+  },
+  {
+    "id": "2",
+    "name": "إنستغرام بلس",
+    "version": "300.2",
+    "size": "95 MB",
+    "icon": "https://via.placeholder.com/90/E1306C/FFFFFF?text=INS",
+    "desc": "تطبيق إنستغرام معدل مع إمكانية تحميل الصور والستوري.",
+    "link": "itms-services://?action=download-manifest&url=https://your-link.com/app2.plist"
+  }
+]
