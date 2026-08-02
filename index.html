@@ -1,521 +1,107 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>ستروفي — متجر وتوقيع التطبيقات</title>
-<meta name="description" content="ستروفي - متجرك الاحترافي لتحميل وتثبيت وتوقيع تطبيقات الآيفون بسهولة">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0b0f19;
-    --surface: #131b2e;
-    --surface-card: #1a233a;
-    --border: #263554;
-    --text: #f3f4f6;
-    --muted: #9ca3af;
-    --primary: #3b82f6;
-    --primary-glow: rgba(59, 130, 246, 0.4);
-    --accent: #8b5cf6;
-    --success: #10b981;
-    --radius: 20px;
-    --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    min-height: 100vh;
-    padding-bottom: 90px;
-    overflow-x: hidden;
-  }
-  h1, h2, h3, .brand { font-family: 'Tajawal', sans-serif; }
-
-  /* Ambient Glow */
-  .glow-bg {
-    position: fixed;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 300px;
-    background: var(--primary);
-    filter: blur(140px);
-    opacity: 0.25;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  /* Header / Nav */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(11, 15, 25, 0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 20px;
-  }
-  .nav-container {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.35rem;
-    font-weight: 900;
-    color: #fff;
-  }
-  .brand-logo-img {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    object-fit: contain;
-    background: #000;
-    padding: 2px;
-    border: 1px solid var(--border);
-  }
-  .header-badge {
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--success);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    border: 1px solid rgba(16, 185, 129, 0.3);
-  }
-
-  /* Main Container */
-  .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Search & Hero Banner */
-  .hero-banner {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    text-align: center;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow);
-  }
-  .hero-banner h1 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-  }
-  .hero-banner p {
-    color: var(--muted);
-    font-size: 0.9rem;
-    margin-bottom: 18px;
-  }
-  .search-box {
-    position: relative;
-    width: 100%;
-  }
-  .search-box input {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 12px 16px 12px 44px;
-    border-radius: 14px;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .search-box input:focus {
-    border-color: var(--primary);
-  }
-  .search-box svg {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
-    fill: var(--muted);
-  }
-
-  /* Section Titles */
-  .section-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .section-title span {
-    font-size: 0.8rem;
-    color: var(--primary);
-    cursor: pointer;
-  }
-
-  /* Apps List Style (AppStar style) */
-  .apps-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 30px;
-  }
-  .app-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .app-card:active {
-    transform: scale(0.98);
-  }
-  .app-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 14px;
-    background: var(--surface-card);
-    border: 1px solid var(--border);
-    object-fit: cover;
-    flex-shrink: 0;
-  }
-  .app-info {
-    flex: 1;
-    min-width: 0;
-  }
-  .app-name {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .app-desc {
-    color: var(--muted);
-    font-size: 0.8rem;
-    margin-bottom: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .app-meta {
-    display: flex;
-    gap: 10px;
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
-  .app-meta .badge-ver {
-    background: rgba(59, 130, 246, 0.15);
-    color: var(--primary);
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-weight: 600;
-  }
-  .install-btn {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    transition: background 0.2s;
-    flex-shrink: 0;
-  }
-  .install-btn:hover {
-    background: #2563eb;
-  }
-
-  /* Signing Section Card */
-  .tool-card {
-    background: linear-gradient(135deg, #131b2e, #1a103c);
-    border: 1px solid #3b2c63;
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 30px;
-  }
-  .tool-card h3 {
-    font-size: 1rem;
-    margin-bottom: 8px;
-    color: #c084fc;
-  }
-  .tool-card p {
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin-bottom: 14px;
-  }
-  .upload-file-box {
-    border: 2px dashed #3b2c63;
-    border-radius: 14px;
-    padding: 20px;
-    text-align: center;
-    background: rgba(19, 27, 46, 0.5);
-    cursor: pointer;
-    transition: border-color 0.2s;
-  }
-  .upload-file-box:hover {
-    border-color: #c084fc;
-  }
-  .upload-file-box span {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-  .action-btn-full {
-    width: 100%;
-    margin-top: 12px;
-    background: linear-gradient(135deg, #8b5cf6, #3b82f6);
-    color: #fff;
-    border: none;
-    padding: 12px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-  }
-
-  /* Bottom Navigation Bar (App style) */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(19, 27, 46, 0.92);
-    backdrop-filter: blur(16px);
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0 env(safe-area-inset-bottom, 10px);
-    z-index: 100;
-  }
-  .nav-item {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-family: inherit;
-    font-size: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-  .nav-item.active {
-    color: var(--primary);
-  }
-  .nav-item svg {
-    width: 22px;
-    height: 22px;
-    fill: currentColor;
-  }
-
-  /* Modal / Notifications */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 20px;
-  }
-  .modal-content {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    width: 100%;
-    max-width: 400px;
-    padding: 24px;
-    text-align: center;
-    animation: scaleUp 0.3s ease;
-  }
-  @keyframes scaleUp {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  .modal-content h3 { font-size: 1.2rem; margin-bottom: 10px; }
-  .modal-content p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
-  .modal-btn {
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل التطبيق</title>
+    <style>
+        body {
+            background-color: #0b0b0e;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .app-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px 20px;
+            max-width: 350px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .app-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 22px;
+            margin: 10px 0 5px 0;
+        }
+        .version {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .description {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .download-btn {
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 14px 0;
+            width: 100%;
+            display: block;
+            border-radius: 50px;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+            transition: 0.2s;
+        }
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+    </label>
+    </style>
 </head>
 <body>
 
-<div class="glow-bg"></div>
-
-<header>
-  <div class="nav-container">
-    <div class="brand">
-      <img src="logo.png" alt="Strofy" class="brand-logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2238%22 height=%2238%22 viewBox=%220 0 24 24%22 fill=%22%233b82f6%22><path d=%22M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z%22/></svg>'">
-      <span>ستروفي | Strofy</span>
-    </div>
-    <div class="header-badge">متصل آمن</div>
-  </div>
-</header>
-
-<main class="container">
-  
-  <!-- Hero / Search Section -->
-  <div class="hero-banner">
-    <h1>متجر وتوقيع التطبيقات</h1>
-    <p>حمّل أحدث التطبيقات المعدلة والمهكرة وثبتها مباشرة على جهازك</p>
-    <div class="search-box">
-      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <input type="text" id="searchInput" placeholder="ابحث عن تطبيق أو لعبة...">
-    </div>
-  </div>
-
-  <!-- Featured / Apps Section -->
-  <div class="section-title">
-    <span>التطبيقات المتاحة للتحميل</span>
-    <span onclick="alert('جميع التطبيقات محدثة بأحدث إصدار')">عرض الكل</span>
-  </div>
-
-  <div class="apps-list" id="appsContainer">
-    <!-- App 1 -->
     <div class="app-card">
-      <img src="app1.png" class="app-icon" alt="App" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 24 24%22 fill=%22%233b82f6%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%231e293b%22/><path d=%22M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5%22 stroke=%22%233b82f6%22 stroke-width=%222%22 fill=%22none%22/></svg>'">
-      <div class="app-info">
-        <div class="app-name">Strofy Client Pro</div>
-        <div class="app-desc">التطبيق الرسمي للمتجر مع ميزات حصرية وتصفح سريع</div>
-        <div class="app-meta">
-          <span class="badge-ver">v2.4</span>
-          <span>45 MB</span>
-          <span>★ 4.9</span>
-        </div>
-      </div>
-      <button class="install-btn" onclick="triggerInstall('Strofy Client Pro')">تثبيت</button>
+        <!-- أيقونة التطبيق -->
+        <img id="appIcon" class="app-icon" src="" alt="App Icon">
+        
+        <!-- اسم التطبيق -->
+        <h1 id="appName">اسم التطبيق</h1>
+        
+        <!-- الإصدار والتصنيف -->
+        <div id="appVersion" class="version">الإصدار 1.0</div>
+        
+        <!-- وصف التطبيق -->
+        <p id="appDesc" class="description">وصف مختصر يوضح مميزات التطبيق وكيفية عمله بشكل آمن وسهل.</p>
+        
+        <!-- زر التحميل المباشر (أو التثبيت عبر itms-services) -->
+        <a id="downloadLink" href="#" class="download-btn">تنزيل التطبيق ⬇</a>
     </div>
 
-    <!-- App 2 -->
-    <div class="app-card">
-      <img src="app2.png" class="app-icon" alt="App" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 24 24%22 fill=%22%238b5cf6%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%231e293b%22/><circle cx=%2212%22 cy=%2212%22 r=%226%22 fill=%22%238b5cf6%22/></svg>'">
-      <div class="app-info">
-        <div class="app-name">YouTube Enhanced</div>
-        <div class="app-desc">يوتيوب بلس بدون إعلانات مع ميزة تشغيل في الخلفية</div>
-        <div class="app-meta">
-          <span class="badge-ver">v19.2</span>
-          <span>120 MB</span>
-          <span>★ 4.8</span>
-        </div>
-      </div>
-      <button class="install-btn" onclick="triggerInstall('YouTube Enhanced')">تثبيت</button>
-    </div>
+    <script>
+        // قراءة المعلومات المتغيرة من الرابط (Query Parameters) لتغيير محتوى الصفحة بحسب التطبيق الذي تم الضغط عليه
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name') || 'تطبيق مميز';
+        const version = urlParams.get('ver') || '1.0';
+        const icon = urlParams.get('icon') || 'https://via.placeholder.com/90';
+        const link = urlParams.get('link') || '#';
+        const desc = urlParams.get('desc') || 'استمتع بأفضل تجربة استخدام لهذا التطبيق المعدل.';
 
-    <!-- App 3 -->
-    <div class="app-card">
-      <img src="app3.png" class="app-icon" alt="App" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 24 24%22 fill=%22%2310b981%22><rect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%231e293b%22/><path d=%22M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z%22 fill=%22%2310b981%22/></svg>'">
-      <div class="app-info">
-        <div class="app-name">WhatsApp Dark</div>
-        <div class="app-desc">واتساب معدل بمميزات الخصوصية الكاملة وإخفاء الظهور</div>
-        <div class="app-meta">
-          <span class="badge-ver">v2.24</span>
-          <span>85 MB</span>
-          <span>★ 4.7</span>
-        </div>
-      </div>
-      <button class="install-btn" onclick="triggerInstall('WhatsApp Dark')">تثبيت</button>
-    </div>
-  </div>
-
-  <!-- Signing & Custom Upload Tool Card -->
-  <div class="tool-card">
-    <h3>🛠️ أداة توقيع ورفع ملفات IPA</h3>
-    <p>قم برفع أو توقيع ملف الـ IPA الخاص بك بشهادتك الشخصية مباشرة عبر المتجر</p>
-    
-    <div class="upload-file-box" onclick="alert('جاهز لاستقبال ملفات IPA وتوقيعها عبر السيرفر الخاص بك')">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="#8b5cf6"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
-      <span>اضغط هنا لاختيار ملف IPA للرفع أو التوقيع</span>
-    </div>
-    
-    <button class="action-btn-full" onclick="alert('تم تفعيل وضع التوقيع التلقائي لـ Strofy!')">بدء توقيع وتثبيت التطبيق</button>
-  </div>
-
-</main>
-
-<!-- Bottom Navigation Bar -->
-<nav class="bottom-nav">
-  <button class="nav-item active" onclick="switchTab(this)">
-    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    الرئيسية
-  </button>
-  <button class="nav-item" onclick="switchTab(this)">
-    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-    إضافة تطبيق
-  </button>
-  <button class="nav-item" onclick="switchTab(this)">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-    ححول المتجر
-  </button>
-</nav>
-
-<!-- Modal Notification -->
-<div class="modal-overlay" id="installModal">
-  <div class="modal-content">
-    <h3 id="modalTitle">جاري التثبيت...</h3>
-    <p id="modalDesc">يتم تجهيز شهادة التوقيع وربط حزمة التطبيق بمتجر Strofy.</p>
-    <button class="modal-btn" onclick="closeModal()">حسناً</button>
-  </div>
-</div>
-
-<script>
-  function triggerInstall(appName) {
-    document.getElementById('modalTitle').innerText = 'تثبيت ' + appName;
-    document.getElementById('modalDesc').innerText = 'تم بدء عملية توقيع التطبيق وتثبيته بنجاح عبر متجر Strofy.';
-    document.getElementById('installModal').style.display = 'flex';
-  }
-
-  function closeModal() {
-    document.getElementById('installModal').style.display = 'none';
-  }
-
-  function switchTab(el) {
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    el.classList.add('active');
-  }
-
-  // Simple search filter
-  document.getElementById('searchInput').addEventListener('input', function(e) {
-    const term = e.target.value.toLowerCase();
-    const cards = document.querySelectorAll('.app-card');
-    cards.forEach(card => {
-      const name = card.querySelector('.app-name').innerText.toLowerCase();
-      card.style.display = name.includes(term) ? 'flex' : 'none';
-    });
-  });
-</script>
+        document.getElementById('appName').innerText = name;
+        document.getElementById('appVersion').innerText = "الإصدار " + version;
+        document.getElementById('appIcon').src = icon;
+        document.getElementById('downloadLink').href = link;
+        document.getElementById('appDesc').innerText = desc;
+    </script>
 
 </body>
 </html>
